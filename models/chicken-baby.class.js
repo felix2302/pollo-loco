@@ -1,6 +1,9 @@
-
+/**
+ * Represents a smaller version of an enemy chicken.
+ */
 class ChickenBaby extends MovableObject {
 
+  // Dimensions and offsets for the ChickenBaby
   width = 60;
   height = 60;
   y = 370;
@@ -8,6 +11,8 @@ class ChickenBaby extends MovableObject {
   offsetLeft = 5;
   offsetTop = 5;
   offsetBottom = 5;
+
+  isDead = false;
 
   IMAGES_WALKING = [
     './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -17,9 +22,10 @@ class ChickenBaby extends MovableObject {
 
   IMAGES_DEAD = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
 
-  isDead = false;
-
-
+  /**
+   * Creates an instance of ChickenBaby.
+   * Initializes the ChickenBaby with a random position and speed, and starts animation.
+   */
   constructor() {
     super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -29,6 +35,9 @@ class ChickenBaby extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Handles the ChickenBaby's animation and movement.
+   */
   animate() {
     setInterval(() => {
       if (!this.isDead) {
@@ -43,7 +52,11 @@ class ChickenBaby extends MovableObject {
     }, 100);
   }
 
-  EnemyDead() {
+  /**
+   * Marks the ChickenBaby as dead and plays the death animation.
+   * Removes the ChickenBaby from the level after a short delay.
+   */
+  enemyDead() {
     if (!this.isDead) {
       this.isDead = true;
       this.playAnimation(this.IMAGES_DEAD);

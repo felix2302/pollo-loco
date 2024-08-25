@@ -1,6 +1,11 @@
-
+/**
+ * Represents a status bar for bottles with varying levels.
+ */
 class BottleStatusBar extends StatusBar {
 
+  /**
+   * Initializes the BottleStatusBar instance with images and dimensions.
+   */
   constructor() {
     super(
       [

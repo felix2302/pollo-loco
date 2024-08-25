@@ -1,6 +1,13 @@
-
+/**
+ * Represents the boss's status bar in the game, showing the boss's health visually.
+ * Inherits from the StatusBar class and initializes with specific boss health images.
+ */
 class BossStatusBar extends StatusBar {
 
+  /**
+   * Constructs a BossStatusBar instance with predefined images and dimensions.
+   * The status bar is positioned near the top center of the screen.
+   */
   constructor() {
     super(
       [

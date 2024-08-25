@@ -1,6 +1,9 @@
-
+/**
+ * Represents the main player character with various animations and states.
+ */
 class Character extends MovableObject {
 
+  // Dimensions and position
   width = 140;
   height = 270;
   y = 160;
@@ -13,6 +16,7 @@ class Character extends MovableObject {
   offsetBottom = 10;
   world;
 
+  // Animation images
   IMAGES_IDLE = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
     './img/2_character_pepe/1_idle/idle/I-2.png',
@@ -76,6 +80,10 @@ class Character extends MovableObject {
     './img/2_character_pepe/5_dead/D-57.png',
   ];
 
+  /**
+   * Initializes the Character instance.
+   * Loads images and sets up animations.
+   */
   constructor() {
     super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_IDLE);
@@ -88,15 +96,20 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Sets up animations and movement intervals for the character.
+   */
   animate() {
+    // Movement and camera update
     setInterval(() => {
       this.handleMovement();
       this.updateCameraPosition();
     }, 1000 / 60);
 
+    // Animation updates
     setInterval(() => {
       if (this.isDead()) {
-        this.CharacterDead();
+        this.characterDead();
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.isHurt()) {
@@ -110,15 +123,20 @@ class Character extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Updates the camera position based on the character's position.
+   */
   updateCameraPosition() {
     if (this.world) {
       this.world.camera_x = -this.x + 100;
     }
   }
 
+  /**
+   * Handles character movement based on keyboard input.
+   */
   handleMovement() {
     this.world.audio.walking_audio.pause();
-
     if (this.world && this.world.keyboard) {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveCharacterRight();
@@ -132,6 +150,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Moves the character to the right.
+   */
   moveCharacterRight() {
     this.moveRight();
     this.otherDirection = false;
@@ -139,6 +160,9 @@ class Character extends MovableObject {
     this.lastActivityTime = Date.now();
   }
 
+  /**
+   * Moves the character to the left.
+   */
   moveCharacterLeft() {
     this.moveLeft();
     this.otherDirection = true;
@@ -146,6 +170,9 @@ class Character extends MovableObject {
     this.lastActivityTime = Date.now();
   }
 
+  /**
+   * Handles the character's idle animations.
+   */
   idleAnimations() {
     let idleTime = Date.now() - this.lastActivityTime;
     if (idleTime > 5000 && !this.world.gameOver && !this.world.gameWin) {
@@ -157,7 +184,10 @@ class Character extends MovableObject {
     }
   }
 
-  CharacterDead() {
+  /**
+   * Handles the character's death state.
+   */
+  characterDead() {
     if (!this.world.gameOver) {
       this.world.audio.background.pause();
       this.world.audio.bossfight_audio.pause();
@@ -168,6 +198,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Makes the character jump and plays the jumping audio.
+   */
   characterJump() {
     this.jump();
     this.world.audio.jumping_audio.play();

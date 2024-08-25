@@ -1,4 +1,7 @@
-
+/**
+ * Represents a throwable object in the game, such as a salsa bottle.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
 
   offsetRight = 5;
@@ -22,6 +25,9 @@ class ThrowableObject extends MovableObject {
     './img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
   ];
 
+  /**
+   * Throws the bottle, applying gravity and starting rotation and ground detection.
+   */
   throw() {
     this.speedY = 25;
     this.applyGravity();
@@ -29,6 +35,11 @@ class ThrowableObject extends MovableObject {
     this.reachedGround();
   }
 
+  /**
+   * Creates a new ThrowableObject instance.
+   * @param {number} x - The initial x position of the bottle.
+   * @param {number} y - The initial y position of the bottle.
+   */
   constructor(x, y) {
     super().loadImage(
       './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png'
@@ -43,6 +54,9 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * Rotates the bottle continuously while it is thrown.
+   */
   rotateBottle() {
     this.rotationInterval = setInterval(() => {
       this.checkDirection();
@@ -50,6 +64,9 @@ class ThrowableObject extends MovableObject {
     }, 30);
   }
 
+  /**
+   * Checks the direction of the bottle and adjusts its position accordingly.
+   */
   checkDirection() {
     if (this.otherDirection) {
       this.x -= 20;
@@ -58,6 +75,9 @@ class ThrowableObject extends MovableObject {
     }
   }
 
+  /**
+   * Detects when the bottle reaches the ground and triggers the splash animation.
+   */
   reachedGround() {
     this.throwInterval = setInterval(() => {
       if (this.y >= 370) {
@@ -73,9 +93,9 @@ class ThrowableObject extends MovableObject {
     }, 30);
   }
 
-
-
-
+  /**
+   * Removes the bottle from the world's throwable objects list after a short delay.
+   */
   removeBottle() {
     setTimeout(() => {
       let index = world.throwableObjects.indexOf(this);
@@ -85,6 +105,9 @@ class ThrowableObject extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Triggers the splash animation and marks the bottle as broken.
+   */
   splashAnimation() {
     this.isBroken = true;
     clearInterval(this.throwInterval);

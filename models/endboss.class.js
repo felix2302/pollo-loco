@@ -1,4 +1,7 @@
-
+/**
+ * Represents the Endboss character in the game, a formidable enemy that players must defeat.
+ * Inherits from MovableObject and has properties and methods specific to the Endboss's behavior.
+ */
 class Endboss extends MovableObject {
   static DIMENSIONS = { height: 400, width: 250 };
   static INITIAL_POSITION = { y: 55, x: 3800 };
@@ -44,6 +47,10 @@ class Endboss extends MovableObject {
     ],
   };
 
+  /**
+   * Constructs an Endboss object with default properties and behaviors.
+   * Loads the initial images, sets properties, and starts the animation loop.
+   */
   constructor() {
     super();
     this.initializeProperties();
@@ -51,7 +58,9 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
-
+  /**
+   * Initializes the Endboss's properties such as dimensions, position, speed, and state flags.
+   */
   initializeProperties() {
     this.setDimensions(Endboss.DIMENSIONS);
     this.setOffsets(Endboss.OFFSETS);
@@ -66,13 +75,19 @@ class Endboss extends MovableObject {
     this.invulnerable = false;
   }
 
-
+  /**
+   * Sets the dimensions of the Endboss.
+   * @param {Object} dimensions - The height and width of the Endboss.
+   */
   setDimensions({ height, width }) {
     this.height = height;
     this.width = width;
   }
 
-
+  /**
+   * Sets the collision offsets for the Endboss.
+   * @param {Object} offsets - The offsets for collision detection (top, bottom, left, right).
+   */
   setOffsets({ right, left, top, bottom }) {
     this.offsetRight = right;
     this.offsetLeft = left;
@@ -80,13 +95,17 @@ class Endboss extends MovableObject {
     this.offsetBottom = bottom;
   }
 
-
+  /**
+   * Loads the initial image for the Endboss and preloads all animation frames.
+   */
   loadInitialImages() {
     this.loadImage(Endboss.IMAGES.ALERT[0]);
     this.loadImages(Object.values(Endboss.IMAGES).flat());
   }
 
-
+  /**
+   * Starts the animation loop for the Endboss, updating its state based on player proximity and health.
+   */
   animate() {
     this.animationInterval = setInterval(() => {
       if (!world || !world.character) return;
@@ -107,7 +126,10 @@ class Endboss extends MovableObject {
     }, 150);
   }
 
- 
+  /**
+   * Initiates the encounter with the player when they are close enough.
+   * Starts the boss music and pauses the background music.
+   */
   startEncounter() {
     this.hadFirstContact = true;
     world.audio.bossfight_audio.play();
@@ -115,7 +137,10 @@ class Endboss extends MovableObject {
     this.startWalking();
   }
 
-  
+  /**
+   * Begins the walking animation and movement for the Endboss.
+   * Adjusts direction based on player's position.
+   */
   startWalking() {
     this.clearWalkingIntervals();
     this.walkingInterval = setInterval(() => {
@@ -127,17 +152,26 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
- 
+  /**
+   * Clears the intervals related to the walking animation and movement.
+   */
   clearWalkingIntervals() {
     if (this.walkingInterval) clearInterval(this.walkingInterval);
     if (this.walkingAnimationInterval) clearInterval(this.walkingAnimationInterval);
   }
 
-
+  /**
+   * Checks if the Endboss can walk (not hurt, dead, or attacking).
+   * @returns {boolean} - True if the Endboss can walk, false otherwise.
+   */
   canWalk() {
     return !this.isHurt && !this.bossDead && !this.isAttacking;
   }
 
+  /**
+   * Adjusts the direction of the Endboss based on the player's position.
+   * Moves the Endboss towards the player.
+   */
   changeDirection() {
     if (world.character.x > this.x) {
       this.moveRight();
@@ -148,6 +182,10 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Plays the hurt animation and handles the logic when the Endboss is damaged.
+   * Sets a timeout to recover from the hurt state or triggers the death sequence if health is depleted.
+   */
   hurtAnimation() {
     this.isHurt = true;
     world.audio.bossChicke_walk_audio.play();
@@ -161,6 +199,10 @@ class Endboss extends MovableObject {
     }, 1000);
   }
 
+  /**
+   * Handles the death of the Endboss, playing the death animation and sound.
+   * Removes the Endboss from the game after a short delay.
+   */
   die() {
     this.bossDead = true;
     world.audio.bossChicken_dead_audio.play();
@@ -168,6 +210,10 @@ class Endboss extends MovableObject {
     setTimeout(() => this.removeBossFromGame(), 1000);
   }
 
+  /**
+   * Removes the Endboss from the game and sets the win condition.
+   * Stops all boss-related audio.
+   */
   removeBossFromGame() {
     const index = world.level.enemies.indexOf(this);
     if (index > -1) {
@@ -177,11 +223,18 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Stops all audio related to the Endboss.
+   */
   stopBossAudio() {
     world.audio.bossChicken_dead_audio.pause();
     world.audio.bossChicke_walk_audio.pause();
   }
 
+  /**
+   * Initiates the attack animation and logic for the Endboss.
+   * The attack lasts for 1.5 seconds, after which the Endboss resumes normal behavior.
+   */
   chickenBossAttack() {
     this.isAttacking = true;
     this.attackInterval = setInterval(() => {
@@ -191,12 +244,20 @@ class Endboss extends MovableObject {
     setTimeout(() => this.endAttack(), 1500);
   }
 
+  /**
+   * Ends the attack sequence, clearing the attack interval and resuming walking behavior if applicable.
+   */
   endAttack() {
     this.isAttacking = false;
     clearInterval(this.attackInterval);
     if (!this.bossDead && !this.isHurt) this.startWalking();
   }
 
+  /**
+   * Handles the logic when the Endboss is hit by the player.
+   * Plays the hurt animation and checks if the Endboss should die.
+   * Sets a temporary invulnerability period after being hit.
+   */
   hitEndBoss() {
     if (this.isInvulnerable()) return;
 
@@ -208,6 +269,9 @@ class Endboss extends MovableObject {
     this.setInvulnerability();
   }
 
+  /**
+   * Sets a temporary invulnerability period for the Endboss after being hit.
+   */
   setInvulnerability() {
     this.invulnerable = true;
     setTimeout(() => {
@@ -215,10 +279,18 @@ class Endboss extends MovableObject {
     }, 1000);
   }
 
+  /**
+   * Checks if the Endboss is currently invulnerable, hurt, or dead.
+   * @returns {boolean} - True if the Endboss cannot be hit, false otherwise.
+   */
   isInvulnerable() {
     return this.bossDead || this.isHurt || this.invulnerable;
   }
 
+  /**
+   * Adjusts the Endboss's speed based on its current energy level.
+   * Increases speed as energy decreases.
+   */
   adjustSpeedAndWalk() {
     if (this.energy < 80 && this.speed !== 7) {
       this.speed = 7;
