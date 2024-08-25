@@ -23,7 +23,7 @@ function startGame() {
   init();
 }
 
-function PlayAgain() {
+function playAgain() {
   localStorage.setItem('playAgain', 'true');
   window.location.reload();
 }
@@ -41,7 +41,7 @@ function backToMenu() {
   window.location.reload(true);
 }
 
-function MuteGame() {
+function muteGame() {
   isMuted = !isMuted;
   checkMuteStatus();
   localStorage.setItem('isMuted', isMuted);
