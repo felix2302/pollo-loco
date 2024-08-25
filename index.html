@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="shortcut icon" href="img\7_statusbars\3_icons\icon_coin.png" type="image/x-icon" />
+  <script src="./models/drawable.object.class.js" defer></script>
+  <script src="./models/movable-object.class.js" defer></script>
+  <script src="./models/audio-base.class.js" defer></script>
+  <script src="./models/cloud.class.js" defer></script>
+  <script src="./models/character.class.js" defer></script>
+  <script src="./models/chicken-baby.class.js" defer></script>
+  <script src="./models/chicken.class.js" defer></script>
+  <script src="./models/endboss.class.js" defer></script>
+  <script src="./models/bottle.class.js" defer></script>
+  <script src="./models/coin.class.js" defer></script>
+  <script src="./models/status-bar.class.js" defer></script>
+  <script src="./models/bottle.status.class.js" defer></script>
+  <script src="./models/health.status.class.js" defer></script>
+  <script src="./models/health.boss.status.class.js" defer></script>
+  <script src="./models/coin.status.class.js" defer></script>
+  <script src="./models/screen-win.class.js" defer></script>
+  <script src="./models/screen-gameover.class.js" defer></script>
+  <script src="./models/level.class.js" defer></script>
+  <script src="./models/world.class.js" defer></script>
+  <script src="./models/background.object.class.js" defer></script>
+  <script src="./models/keyboard.class.js" defer></script>
+  <script src="./models/throwable.object.class.js" defer></script>
+  <script src="./levels/level1.js" defer></script>
+  <script src="./js/game.js" defer></script>
+  <title>El Pollo Loco</title>
+</head>
+
+<body onload="load()">
+  <div id="start-screen">
+    <canvas id="start-canvas" width="720px" height="480px"></canvas>
+    <button onclick="startGame()" class="start-button" id="start-button">
+      Start Game
+    </button>
+
+    <div class="legal">
+      <a href="./imprint.html">Imprint</a>
+    </div>
+  </div>
+  <div id="loading-screen" class="d-none">
+    <img src="./img/6_salsa_bottle/salsa_bottle.png">
+  </div>
+
+  <div id="rotate-device" class="d-none">
+    <div class="rotate-device-container">
+      <h2>Please Rotate your Device</h2>
+      <img src="./img/10_icons/screen_rotation_24dp_434343_FILL0_wght400_GRAD0_opsz24.svg" />
+    </div>
+  </div>
+  <h1>El Pollo Loco</h1>
+  <div id="play-screen" class="d-none">
+    <button onclick="PlayAgain()" id="play-again" class="start-button d-none">
+      Play Again
+    </button>
+    <button onclick="backToMenu()" id="back-to-menu" class="start-button d-none">
+      Menu
+    </button>
+    <div class="screen-audio-buttons">
+      <button onclick="MuteGame()" id="mute-button" class="button">
+        <img id="mute" src="./img/10_icons/volume_up_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png" />
+      </button>
+      <button onclick="toggleFullscreen()" id="full-screen-button" class="button">
+        <img id="full-screen" src="./img/10_icons/fullscreen_24dp_434343_FILL0_wght400_GRAD0_opsz24.png" />
+      </button>
+    </div>
+    <div id="walk-buttons" class="walk-buttons">
+      <button id="button-left" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#802000">
+          <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path>
+        </svg>
+      </button>
+      <button id="button-right" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#802000">
+          <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="jump-throw-buttons" class="jump-throw-buttons">
+      <button id="button-jump" class="button">
+        <svg height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 197.091 197.091" xml:space="preserve">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <g>
+                <g>
+                  <path
+                    d="M32.131,184.928L32.131,184.928c-18.388,0-31.573-2.505-32.131-2.616l0.734-7.648 c32.349,0,55.555-8.45,68.964-25.098c15.174-18.835,13.532-43.34,12.394-51.811H25.918l85.588-85.592l85.585,85.592h-53.976 C136.315,173.487,70.922,184.928,32.131,184.928z M44.564,90.028h43.912l0.673,3.028c0.311,1.432,7.476,35.341-13.381,61.302 c-8.425,10.475-20.113,18.041-34.94,22.651c42.867-1.882,90.753-18.714,94.861-83.362l0.229-3.618h42.527l-66.939-66.946 L44.564,90.028z">
+                  </path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button id="button-throw" class="button">
+        <img src="./img/6_salsa_bottle/salsa_bottle.png" />
+      </button>
+    </div>
+    <canvas id="canvas" width="720px" height="480px"></canvas>
+    <div id="btn-description-container" class="d-block">
+      <div class="btn-description-container">
+        <div>
+          <button class="btn-keyboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#802000">
+              <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path>
+            </svg>
+          </button>
+          <p>Move left</p>
+        </div>
+        <div>
+          <button class="btn-keyboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#802000">
+              <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"></path>
+            </svg>
+          </button>
+          <p>Move right</p>
+        </div>
+        <div>
+          <p class="btn-keyboard">SPACE</p>
+          <p class="text">Jump</p>
+        </div>
+        <div>
+          <p class="btn-keyboard">D</p>
+          <p class="text">Throw Bottle</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>

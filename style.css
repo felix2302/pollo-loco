@@ -1,0 +1,420 @@
+* {
+  box-sizing: border-box;
+}
+
+.btn-description-container {
+  display: flex;
+  width: 720px;
+  justify-content: space-evenly;
+}
+
+.btn-description-container div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-description-container svg {
+  fill: rgb(255, 255, 255);
+}
+
+.btn-description-container :nth-child(2) {
+  color: white;
+  font-size: 120%;
+  font-weight: 100;
+}
+
+.btn-keyboard {
+  border: 2px solid white;
+  color: white;
+  width: 40px;
+  align-items: center;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(139, 41, 8, 0.8);
+}
+
+
+body {
+  display: flex;
+
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-image: url("img/5_background/ganapathy-kumar-L75D18aVal8-unsplash.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "zabras", Arial, sans-serif;
+  color: #434343;
+}
+
+@font-face {
+  font-family: "zabras";
+  src: url("./fonts/Zabars.ttf") format("truetype");
+}
+
+h1 {
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  font-size: 64px;
+  letter-spacing: 5px;
+}
+
+canvas {
+  display: block;
+  border: 10px solid rgba(139, 41, 8, 0.8);
+  border-radius: 5px;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block;
+}
+
+#play-screen {
+  position: relative;
+}
+
+#how-to-play-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 720px;
+  height: 480px;
+  background-color: #a3a3a3bd;
+  background-size: cover;
+}
+
+#rotate-device {
+  background-image: url(img/5_background/ganapathy-kumar-L75D18aVal8-unsplash.jpg);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+#loading-screen img {
+  width: 50px;
+  height: 50px;
+}
+
+#start-screen,
+#rotate-device {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("./img/5_background/ganapathy-kumar-L75D18aVal8-unsplash.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 100;
+}
+
+#start-canvas {
+  background: url("./img/9_intro_outro_screens/start/startscreen_1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#legend {
+  bottom: 4% !important;
+}
+
+.start-button {
+  color: #e6e6e6;
+  bottom: 13%;
+  width: 180px;
+  border-radius: 10px;
+  height: 72px;
+  padding: 10px 20px;
+  position: absolute;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: "zabras", Arial, Helvetica, sans-serif;
+  background: linear-gradient(45deg,
+      rgb(139, 41, 8)50%,
+      rgba(180, 92, 63, 0.8) 100%);
+  background-size: 150% 100%;
+  z-index: 1;
+  background-position: right;
+  transition: background-position 0.225s ease-in-out,
+    box-shadow 0.225s ease-in-out;
+  border: 1px solid whitesmoke;
+}
+
+.start-button:hover,
+.button:hover {
+  cursor: pointer;
+  transform: translate(transition);
+  background-position: left;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+#canvas {
+  display: none;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(139, 41, 8, 0.8);
+  border-radius: 50%;
+  border: 1px solid white;
+  background-position: right;
+  transition: background-position 0.225s ease-in-out,
+    box-shadow 0.225s ease-in-out;
+}
+
+.button img {
+  width: 25px;
+  height: 25px;
+}
+
+.walk-buttons {
+  position: absolute;
+  left: 40px;
+  bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: auto;
+  height: auto;
+
+}
+
+.button-right,
+.button-left {
+  background-color: #434343;
+}
+
+.walk-buttons svg,
+.jump-throw-buttons svg {
+  fill: white
+}
+
+
+.jump-throw-buttons {
+  position: absolute;
+  right: 40px;
+  bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: auto;
+  height: auto;
+}
+
+.screen-audio-buttons {
+  position: absolute;
+  top: 17px;
+  right: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: auto;
+  height: auto;
+}
+
+.imprint-copy {
+  color: white;
+  font-size: 150%;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-shadow: 2px 1px 2px rgb(24, 24, 24);
+}
+
+.imprint-copy a:hover,
+.legal a:hover {
+  text-decoration: underline;
+}
+
+a {
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.icon-meaning {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 30%;
+  left: 10%;
+}
+
+.icons-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rotate-device-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rotate-device-container img {
+  width: 60%;
+}
+
+.icon-meaning img {
+  width: 35px;
+  height: 35px;
+}
+
+.legal {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  align-items: center;
+  gap: 15px;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 35px;
+}
+
+
+
+#back-to-menu {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#play-again {
+  position: absolute;
+  bottom: 190px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+@media (max-width: 1000px) {
+
+  .start-button {
+    width: 160px;
+    height: 60px;
+    padding: 6px 12px;
+    font-size: 30px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 1000px) and (orientation: landscape) {
+
+  .btn-description-container {
+    display: none;
+  }
+
+
+  h1 {
+    display: none;
+  }
+
+  .start-button {
+    width: 160px;
+    height: 60px;
+    top: 4%;
+    padding: 6px 12px;
+    font-size: 30px;
+    font-weight: 400;
+  }
+
+
+
+  #legend {
+    top: 2% !important;
+    right: 20%;
+  }
+
+
+
+  .icon-meaning {
+    gap: 16px;
+  }
+
+  .icon-meaning img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icons-container {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .icons-container span,
+  .icons-container p {
+    font-size: 18px;
+  }
+
+  .button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  h1 {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+  }
+}
