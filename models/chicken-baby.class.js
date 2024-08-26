@@ -3,7 +3,6 @@
  */
 class ChickenBaby extends MovableObject {
 
-  // Dimensions and offsets for the ChickenBaby
   width = 60;
   height = 60;
   y = 370;

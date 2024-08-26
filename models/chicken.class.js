@@ -40,14 +40,12 @@ class Chicken extends MovableObject {
    * Handles the chicken's animation and movement.
    */
   animate() {
-    // Move the chicken to the left continuously
     setInterval(() => {
       if (!this.isDead) {
         this.moveLeft();
       }
     }, 1000 / 60);
 
-    // Play the walking animation
     setInterval(() => {
       if (!this.isDead) {
         this.playAnimation(this.IMAGES_WALKING);
@@ -64,7 +62,6 @@ class Chicken extends MovableObject {
       this.isDead = true;
       this.playAnimation(this.IMAGES_DEAD);
       setTimeout(() => {
-        // Remove the chicken from the level
         let index = world.level.enemies.indexOf(this);
         if (index > -1) {
           world.level.enemies.splice(index, 1);

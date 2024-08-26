@@ -3,7 +3,6 @@
  */
 class Character extends MovableObject {
 
-  // Dimensions and position
   width = 140;
   height = 270;
   y = 160;
@@ -16,7 +15,6 @@ class Character extends MovableObject {
   offsetBottom = 10;
   world;
 
-  // Animation images
   IMAGES_IDLE = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
     './img/2_character_pepe/1_idle/idle/I-2.png',
@@ -100,13 +98,11 @@ class Character extends MovableObject {
    * Sets up animations and movement intervals for the character.
    */
   animate() {
-    // Movement and camera update
     setInterval(() => {
       this.handleMovement();
       this.updateCameraPosition();
     }, 1000 / 60);
 
-    // Animation updates
     setInterval(() => {
       if (this.isDead()) {
         this.characterDead();

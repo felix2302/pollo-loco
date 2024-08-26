@@ -2,7 +2,6 @@
  * Represents a bottle object in the game that can be animated and positioned on the ground.
  */
 class Bottle extends MovableObject {
-  // Static properties defining dimensions, offsets, and images for the bottle
   static DIMENSIONS = { width: 60, height: 60 };
   static OFFSETS = { right: 10, left: 15, top: 10, bottom: 5 };
   static IMAGES_GROUND = [
@@ -17,11 +16,11 @@ class Bottle extends MovableObject {
     super();
     this.setDimensions(Bottle.DIMENSIONS);
     this.setOffsets(Bottle.OFFSETS);
-    this.y = 370; // Set the y position of the bottle
-    this.x = this.getRandomXCoordinate(); // Random x position
-    this.loadImage(Bottle.IMAGES_GROUND[0]); // Load the initial image
-    this.loadImages(Bottle.IMAGES_GROUND); // Load all images for animation
-    this.animate(); // Start the animation
+    this.y = 370;
+    this.x = this.getRandomXCoordinate();
+    this.loadImage(Bottle.IMAGES_GROUND[0]);
+    this.loadImages(Bottle.IMAGES_GROUND);
+    this.animate();
   }
 
   /**

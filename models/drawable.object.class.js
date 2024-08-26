@@ -4,16 +4,15 @@
  */
 class DrawableObject {
 
-  // Default dimensions and position of the object
   height = 150;
   width = 100;
   x = 120;
   y = 280;
 
-  // Image and caching properties
-  img; // The current image of the object
-  imageCache = {}; // Cache for storing multiple images
-  currentImage = 0; // Index of the current image
+
+  img;
+  imageCache = {};
+  currentImage = 0;
 
   /**
    * Loads an image from the specified path and assigns it to the object's img property.
